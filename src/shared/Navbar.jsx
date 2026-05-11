@@ -2,7 +2,6 @@
 import { Button } from "@heroui/react";
 import Link from "next/link";
 import { useState } from "react";
-import { AiOutlineCloseCircle } from "react-icons/ai";
 import { CgClose } from "react-icons/cg";
 import { HiMenuAlt2 } from "react-icons/hi";
 
@@ -28,8 +27,8 @@ const Navbar = () => {
         },
         {
             id: 4,
-            name: "Admin",
-            path: "/admin"
+            name: "Add Destination",
+            path: "/add-destination"
         }
     ];
     const links = navLinks.map(link =>
