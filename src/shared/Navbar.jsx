@@ -38,7 +38,7 @@ const Navbar = () => {
     return (
         <div className="shadow">
             <nav className="flex justify-between items-center
-         py-4 container mx-auto px-4 md:px-8 lg:px-12">
+         py-4 container mx-auto px-4 md:px-8 lg:px-12 flex-wrap">
                 <ul className="hidden md:flex justify-between items-center gap-4">
                     {links}
                 </ul>
@@ -63,7 +63,7 @@ const Navbar = () => {
                         }
 
                         {menu &&
-                            <ul className="absolute top-13 bg-slate-200 z-10 p-4 w-32">
+                            <ul className="absolute top-13 bg-slate-100 z-10 p-4 w-40 space-y-1 ">
                                 {links}
                             </ul>
                         }
