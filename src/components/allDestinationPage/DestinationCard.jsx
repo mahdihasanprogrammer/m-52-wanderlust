@@ -11,7 +11,7 @@ const DestinationCard = ({ destCard }) => {
     return (
         <div className="flex flex-col font-medium space-y-1 p-4 shadow border  rounded-sm">
 
-            <div className="aspect-square relative mb-4">
+            <div className="aspect-video relative mb-4">
                 <Image className="rounded-sm"
                     src={imageUrl}
                     alt={destinationName}
