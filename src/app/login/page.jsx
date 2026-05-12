@@ -11,7 +11,7 @@ const LoginPage = () => {
     const formData = new FormData(event.currentTarget);
     const convertedData = Object.fromEntries(formData.entries());
     console.log(convertedData);
-    const {name, email, image, password} = convertedData;
+    const { email, password} = convertedData;
 
     // signup method;
     const { error} = await authClient.signIn.email({

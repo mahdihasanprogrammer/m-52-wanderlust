@@ -1,14 +1,16 @@
 "use client"
-import { Button } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
+import { Avatar, Button, Skeleton } from "@heroui/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { CgClose } from "react-icons/cg";
 import { HiMenuAlt2 } from "react-icons/hi";
 
 const Navbar = () => {
 
+    const router = useRouter();
     const [menu, setMenu] = useState(false);
-
     const navLinks = [
         {
             id: 1,
@@ -33,6 +35,26 @@ const Navbar = () => {
     ];
     const links = navLinks.map(link =>
         <li key={link.id}><Link href={link.path}>{link.name}</Link></li>)
+
+
+    // get user data from db;
+    const {
+        data: session,
+        isPending, //loading state
+    } = authClient.useSession();
+    const user = session?.user;
+
+
+    // logout functionality;
+    const handleLogout =async () => {
+        await authClient.signOut({
+            fetchOptions: {
+                onSuccess: () => {
+                    router.push("/login"); // redirect to login page
+                },
+            },
+        });
+    }
 
 
     return (
@@ -72,16 +94,42 @@ const Navbar = () => {
                     <h1 className=" text-2xl md:text-3xl font-bold text-[#15A1BF] ">Wanderlust</h1>
                 </div>
 
-                <ul className="flex justify-between items-center gap-4">
+                <ul className="flex justify-between items-center gap-3">
                     <li>
                         <Link href={'/profile'}>Profile</Link>
                     </li>
-                    <li>
-                        <Link href={'/login'}>Login</Link>
-                    </li>
-                    <li>
-                        <Link href={'/signup'}>Sign Up</Link>
-                    </li>
+                    {
+                        isPending ?
+                            <div className="flex items-center gap-3">
+                                <Skeleton className="h-10 w-10 shrink-0 rounded-full" />
+                                <div className="flex-1 space-y-2">
+                                    <Skeleton className="h-3 w-36 rounded-lg" />
+                                    <Skeleton className="h-3 w-24 rounded-lg" />
+                                </div>
+                            </div> :
+                            user ?
+                                <>
+                                    <Avatar className="size-9">
+                                        <Avatar.Image
+                                            alt="John Doe" src={user?.image}
+                                            referrerPolicy="no-referrer" />
+                                        <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                                    </Avatar>
+                                    <Button onClick={handleLogout}
+                                     size="sm"
+                                        className={'rounded-sm'}
+                                        variant="danger">Logout</Button>
+                                </>
+
+                                : <>
+                                    <li>
+                                        <Link href={'/login'}>Login</Link>
+                                    </li>
+                                    <li>
+                                        <Link href={'/signup'}>Sign Up</Link>
+                                    </li>
+                                </>
+                    }
                 </ul>
             </nav>
         </div>
