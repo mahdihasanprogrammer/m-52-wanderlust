@@ -22,6 +22,7 @@ console.log('this is id', id)
         })
 
         const resData =await res.json();
+        console.log('data', resData)
         if(resData.modifiedCount >0 ){
             revalidatePath(`/destinations/${id}`)
         }

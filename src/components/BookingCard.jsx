@@ -9,7 +9,7 @@ import { GoArrowUpRight } from "react-icons/go";
 const BookingCard = ({ data }) => {
     const { _id, destinationName, country, price, duration, imageUrl } = data;
     const [date, setDate] = useState('');
-    console.log(date.length,  'test length')
+
 
     // get user data from db;
     const {
@@ -53,10 +53,10 @@ const BookingCard = ({ data }) => {
                 <span className="text-3xl font-bold text-cyan-600">${price}</span>
                 <br /> per person</p>
 
-            <DateField isRequired
+            <DateField 
                 className="w-full rounded-xl" name="date" value={date}
                 onChange={setDate}>
-                <Label className="text-base font-semibold mb-2">Departure Data</Label>
+                <Label className="text-base font-semibold mb-2">Departure Date</Label>
                 <DateField.Group>
                     <DateField.Input>
                         {(segment) => <DateField.Segment segment={segment} />}
