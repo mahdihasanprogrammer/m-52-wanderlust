@@ -13,7 +13,7 @@ const DestinationDetailsPage = async ({ params }) => {
     const { id } = await params;
 
     const data = await getSingleDestination(id);
-    console.log(data, 'test id')
+
 
     const { destinationName, country, description, duration, imageUrl } = data;
 
