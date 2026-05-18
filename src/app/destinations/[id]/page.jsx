@@ -17,7 +17,7 @@ const DestinationDetailsPage = async ({ params }) => {
     const token = await auth.api.getToken({
         headers: await headers()
     })
-    console.log(typeof token)
+   
 
     const data = await getSingleDestination(id,token.token);
 

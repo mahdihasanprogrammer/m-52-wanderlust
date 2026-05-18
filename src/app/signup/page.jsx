@@ -13,7 +13,7 @@ const SignUpPage = () => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const convertedData = Object.fromEntries(formData.entries());
-    console.log(convertedData);
+    
 
     const { name, email, image, password } = convertedData;
 
