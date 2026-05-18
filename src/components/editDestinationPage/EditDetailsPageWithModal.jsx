@@ -6,14 +6,14 @@ import { FaRegEdit } from "react-icons/fa";
 export function EditDetailsPageWithModal({ data, id }) {
    
     const {destinationName, country, description, price, duration, imageUrl, departureDate,category } = data;
-console.log('this is id', id)
+
 
     const handleEditDestination = async (formData) => {
        "use server"
        const convertedForm = Object.fromEntries(formData.entries());
-       console.log(convertedForm, 'converted form')
      
-        const res = await fetch(`http://localhost:5000/destinations/${id}`,{
+     
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destinations/${id}`,{
             method:'PATCH',
             headers:{
                 'Content-type': 'application/json'

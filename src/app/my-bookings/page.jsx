@@ -19,7 +19,7 @@ const MyBookingPage = async () => {
 
 
 
-    const res = await fetch(`http://localhost:5000/my-bookings/${user?.id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/my-bookings/${user?.id}`);
     const bookings = await res.json();
 
 

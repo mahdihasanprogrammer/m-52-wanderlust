@@ -1,7 +1,9 @@
 import BookingCard from "@/components/BookingCard";
 import DeleteDestination from "@/components/DeleteDestination";
 import { EditDetailsPageWithModal } from "@/components/editDestinationPage/EditDetailsPageWithModal";
+import { auth } from "@/lib/auth";
 import { getSingleDestination } from "@/lib/data";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { FaCalendar } from "react-icons/fa";
@@ -12,7 +14,12 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 const DestinationDetailsPage = async ({ params }) => {
     const { id } = await params;
 
-    const data = await getSingleDestination(id);
+    const token = await auth.api.getToken({
+        headers: await headers()
+    })
+    console.log(typeof token)
+
+    const data = await getSingleDestination(id,token.token);
 
 
     const { destinationName, country, description, duration, imageUrl } = data;
@@ -60,7 +67,7 @@ const DestinationDetailsPage = async ({ params }) => {
                     </div>
 
                     {/* right side content */}
-                  <BookingCard data={data}/>
+                    <BookingCard data={data} />
                 </div>
 
             </div>

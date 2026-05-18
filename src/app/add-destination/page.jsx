@@ -1,4 +1,5 @@
 "use client"
+import { authClient } from "@/lib/auth-client";
 import { Button, Card, FieldError, Input, Label, ListBox, TextArea, TextField, Select } from "@heroui/react";
 import { useRouter } from "next/navigation";
 
@@ -12,11 +13,13 @@ const AddDestinationPage = () => {
     const data = Object.fromEntries(formData.entries());
 
 
-
-    const res = await fetch('http://localhost:5000/add-destination', {
+    const {data:tokenData}= await authClient.token();
+    console.log(tokenData,'this is token data')
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/add-destination`, {
       method: 'POST',
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        authorization: `Bearer ${tokenData.token}`
       },
       body: JSON.stringify(data)
     })

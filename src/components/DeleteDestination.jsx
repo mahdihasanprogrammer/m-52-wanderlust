@@ -1,4 +1,5 @@
 "use client"
+import { authClient } from "@/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { FaTrash } from "react-icons/fa";
@@ -6,10 +7,15 @@ import { FaTrash } from "react-icons/fa";
 
 const DeleteDestination = ({ id }) => {
     const router =useRouter();
-
+    
     const handleDeleteDestination = async (id) => {
-        const res =await fetch(`http://localhost:5000/destinations/${id}`, {
-            method: 'DELETE'
+        const { data: session } = await authClient.token();
+
+        const res =await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destinations/${id}`, {
+            method: 'DELETE',
+            headers:{
+                authorization:`Bearer ${session.token}`
+            }
         })
         const data = await res.json();
         if(data.deletedCount >0){

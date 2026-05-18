@@ -12,7 +12,7 @@ export function MyBookingDeleteAlert({bookingId}) {
 
 const handleMyBookingDelete =async ()=>{
        console.log(bookingId, 'booking id')
-    const res = await fetch(`http://localhost:5000/my-bookings/${bookingId}`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/my-bookings/${bookingId}`,{
         method:"DELETE",
        
     });
